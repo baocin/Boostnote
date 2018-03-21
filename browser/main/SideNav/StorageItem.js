@@ -10,6 +10,7 @@ import dataApi from 'browser/main/lib/dataApi'
 import StorageItemChild from 'browser/components/StorageItem'
 import _ from 'lodash'
 import { SortableElement } from 'react-sortable-hoc'
+import i18n from 'browser/lib/i18n'
 
 const { remote } = require('electron')
 const { Menu, dialog } = remote
@@ -68,7 +69,7 @@ class StorageItem extends React.Component {
     const index = dialog.showMessageBox(remote.getCurrentWindow(), {
       type: 'warning',
       message: i18n.__('Unlink Storage'),
-      detail: i18n.__('This work will just detatches a storage from Boostnote. (Any data won\'t be deleted.)'),
+      detail: i18n.__('This work will just detaches a storage from Boostnote. (Any data won\'t be deleted.)'),
       buttons: [i18n.__('Confirm'), i18n.__('Cancel')]
     })
 

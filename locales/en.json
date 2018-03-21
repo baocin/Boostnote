@@ -152,5 +152,6 @@
 	"Location": "Location",
 	"Add": "Add",
 	"Unlink Storage": "Unlink Storage",
-	"Unlinking removes this linked storage from Boostnote. No data is removed, please manually delete the folder from your hard drive if needed.": "Unlinking removes this linked storage from Boostnote. No data is removed, please manually delete the folder from your hard drive if needed."
+	"Unlinking removes this linked storage from Boostnote. No data is removed, please manually delete the folder from your hard drive if needed.": "Unlinking removes this linked storage from Boostnote. No data is removed, please manually delete the folder from your hard drive if needed.",
+	"This work will just detaches a storage from Boostnote. (Any data won't be deleted.)": "This work will just detaches a storage from Boostnote. (Any data won't be deleted.)"
 }
