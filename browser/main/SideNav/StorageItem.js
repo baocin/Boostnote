@@ -23,11 +23,34 @@ class StorageItem extends React.Component {
     }
   }
 
+  browseFolder () {
+    const dialog = remote.dialog
+  
+    const defaultPath = remote.app.getPath('home')
+    return new Promise((resolve, reject) => {
+      dialog.showOpenDialog({
+        title: 'Select Directory',
+        defaultPath,
+        properties: ['openDirectory', 'createDirectory']
+      }, function (targetPaths) {
+        if (targetPaths == null) return resolve('')
+        resolve(targetPaths[0])
+      })
+    })
+  }
+
   handleHeaderContextMenu (e) {
     const menu = Menu.buildFromTemplate([
       {
         label: 'Add Folder',
         click: (e) => this.handleAddFolderButtonClick(e)
+      },
+      {
+        type: 'separator'
+      },
+      {
+        label: 'Add Storage',
+        click: (e) => this.handleAddStorageBrowseButtonClick(e)
       },
       {
         type: 'separator'
@@ -76,6 +99,42 @@ class StorageItem extends React.Component {
     modal.open(CreateFolderModal, {
       storage
     })
+  }
+
+  baseName(str) {
+    var base = new String(str).substring(str.lastIndexOf('/') + 1); 
+      if(base.lastIndexOf(".") != -1)       
+          base = base.substring(0, base.lastIndexOf("."));
+    return base;
+  }
+
+  handleAddStorageBrowseButtonClick (e) {
+    this.browseFolder()
+      .then((targetPath) => {
+        console.log(targetPath);
+        var folderName = this.baseName(targetPath);
+        console.log(folderName);
+        
+        if (targetPath.length > 0) {
+          dataApi
+          .addStorage({
+            name: folderName,
+            path: targetPath
+          })
+          .then((data) => {
+            const { dispatch } = this.props
+            dispatch({
+              type: 'ADD_STORAGE',
+              storage: data.storage,
+              notes: data.notes
+            })
+          });
+        }
+      })
+      .catch((err) => {
+        console.error('BrowseFAILED')
+        console.error(err)
+      })
   }
 
   handleHeaderInfoClick (e) {
